@@ -1,0 +1,1378 @@
+- O QUE É ES6+: E uma forma de escrever codigo javascript de uma forma diferente.
+
+- BABEL: É para transformar um codigo de ES6 para codigos antigos, para que todos os navegadores endentam.
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- INSTALAÇÕES -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+- NODE JS
+
+- YARN
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- CONFIGURANDO BABEL -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+> yarn init
+
+
+Package.json: Ele vai reservar todas as dependencias do nosso projeto, (O babel é uma depedencia :) )
+
+
+
+> yarn add @babel/cli
+
+// Ele vai permitir que nós trabalhemos com a interface de linha de comando do babel.
+
+### Interface de linha de comando e comando que nós fazemos no terminal...
+
+
+
+> yarn add @babel/preset-env
+
+// Ele vai saber em qual abiente nós estamos trabalhando seja ele react ou node...
+
+
+
+
+
+
+// Crie um arquivo chamado .babelrc
+
+
+
+---------------------------------------------------------------------------------
+
+{
+    "presets": ["@babel/preset-env"]
+}
+
+// No .babelrc E para configurar o babel
+
+-------------------------------------------------------------------------------
+
+// Crie um arquivo index.html e um main.js
+
+------------------------------------------------------------------------------
+
+{
+  "name": "aulas",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/preset-env": "^7.8.4"
+  },
+  "scripts": {
+    "dev":"babel ./main.js -o ./bundle.js"
+  }
+}
+
+
+// Crie esse script no package.json
+
+
+------------------------------------------------------------------------------
+
+
+> yarn add @babel/core
+
+
+---------------------------------------------------------------------------------
+
+> yarn dev
+
+// Execute o dev.
+
+----------------------------------------------------------------------------------
+
+"scripts": {
+    "dev": "babel ./main.js -o ./bundle.js -w"
+  }
+
+
+// Vá no package.json E coloque o -w 
+
+### O -w ele vai ficar monitorando quando tiver uma nova alteração ele vai colocar no bundle.js
+
+---------------------------------------------------------------------------------
+
+class Teste {
+    metodo() {
+
+    }
+
+    outro() {
+        
+    }
+}
+
+// No main.js 
+
+// Depois rode o yarn dev no terminal para ele fazer uma alteração no bundle.js 
+
+-------------------------------------------------------------------------------
+
+// Depois coloque esse comando <script src="./bundle.js"></script> no body do index.html
+
+** Coloque bundle.js no src...
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- CLASSES -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+class TodoList {
+    constructor() {		// É a primeira classe
+        this.todos = []
+    }
+
+    addTodo() {	
+        this.todos.push('Novo todo')	// Adcionar um Novo todo
+        console.log(this.todos)
+    }
+}
+
+const MinhaLista = new TodoList()	// Criar um novo todo
+
+document.getElementById('novotodo').onclick = function(){
+    MinhaLista.addTodo()
+}
+
+
+------------------------------------------------------------------
+
+<button id="novotodo">Adcionar</button>
+
+// Crie um butão com um id ou class
+
+-------------------------------------------------------------------
+
+
+class List {
+    constructor (){
+        this.data = []
+    }
+
+    add(data) {
+        this.data.push(data)
+        console.log(this.data)
+    }
+}
+
+class TodoList extends List {
+
+}
+
+const MinhaLista = new TodoList()
+
+document.getElementById('novotodo').onclick = function(){
+    MinhaLista.add('Novo todo')
+}
+
+
+
+// Maneira de fazer a mesma coisa com o metodo chamado Erança...
+
+-----------------------------------------------------------------------------
+
+
+class List {
+    constructor (){
+        this.data = []
+    }
+
+    add(data) {
+        this.data.push(data)
+        console.log(this.data)
+    }
+}
+
+class TodoList extends List {
+    constructor (){
+        super() 	// E uma maneira de chamar o pai, que é o constructor de cima.
+
+        this.usuario = 'Alexandre'
+    }
+
+    mostraUsuario (){
+        console.log(this.usuario)
+    }
+}
+
+const MinhaLista = new TodoList()
+
+document.getElementById('novotodo').onclick = function(){
+    MinhaLista.add('Novo todo')
+}
+
+MinhaLista.mostraUsuario()
+
+-----------------------------------------------------------------------------------
+
+
+class Matematica {
+    static soma(a, b) {
+        return a + b
+    }
+}
+
+console.log(Matematica.soma(1, 2))
+
+
+// O static serve para isso, ele não depende de outra classe....
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- CONST & LET -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+CONST: Não podemos reatribuir.
+EX:
+	const a = 1
+
+	a = 8
+### Vai dá erro.
+
+
+
+
+const usuario = { nome: 'Alexandre' }
+
+usuario.nome = 'Jubileu'
+
+console.log(usuario)
+
+// Só assim que podemos fazer atraves de uma mutação....
+
+
+-----------------------------------------------------------------------------
+
+
+function teste(x) {
+    let y = 2
+
+    if (x > 5) {
+        console.log(x, y)
+    }
+}
+
+teste(10)
+
+
+// Tudo que estar dentro de chaves e chamado de scoop, o LET so vai enxergar o elemento se ele estiver dentro do mesmo scoop que o let esta...
+
+-------------------------------------------------------------------------------
+
+function teste(x) {
+    let y = 2
+
+    if (x > 5) {
+        let y = 4
+
+        console.log(x, y)
+    }
+}
+
+teste(10)
+
+
+// Tambem funciona...
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- OPERAÇÕES EM ARRAY -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+// O MAP pecorre todo a nossa arr e executa uma funcão que agente quer.
+
+
+
+const arr = [1, 2, 4, 5, 8, 9]
+
+const newArr = arr.map(function(item) {
+    return item * 2
+})
+
+console.log(newArr)
+
+// Ele vai multiplicar cada um desses items por 2.
+
+---------------------------------------------------------------------------------
+
+
+const arr = [1, 2, 4, 5, 8, 9]
+
+const newArr = arr.map(function(item, index) {
+    return item + index
+})
+
+console.log(newArr)
+
+
+// O index ele vai pegar a posição de cada item, Nesse exemplo ele vai somar o valor do item com a posição dele.
+
+// A posição sempre começa em 0.
+
+
+----------------------------------------------------------------------------------
+
+
+// O reduce ele vai pegar todo o nosso vetor e transformar ele em uma unica variavel.
+
+
+
+ const sum = arr.reduce(function(total, next) {
+    return total + next
+})
+
+
+// Ele vai pegar o total e somar com o next(o proximo)
+// Ele vai fazer isso 9 + 8 + 5 + 4 + 3 + 1
+
+
+--------------------------------------------------------------------------------
+
+// O filter server para remover
+
+
+const filter = arr.filter(function(item) {
+    return item % 2 === 0
+})
+
+// Ele so vai retorna os numeros par (Precisamos obrigadoriamente fazer que ele retorne True ou False...)
+
+------------------------------------------------------------------------------
+
+// O find vai servir quando agente quer verificar se existe alguma informação na arr
+ou se agente consegue encontrar uma informação.
+
+
+const find = arr.find(function(item) {
+    return item === 4
+})
+
+console.log(find)
+
+
+// Se tiver o numero 4 na arr ele vai retorna o numero 4
+
+
+
+const find = arr.find(function(item) {
+    return item === 2
+})
+
+console.log(find)
+
+// Se não tiver o numero 2 na arr ele vai retorna undefined....
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- ARROW FUNCTIONS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+// function sem nome e cosiderada anonima...
+
+
+
+const arr = [1, 3, 4, 5, 6]
+
+const newArr = arr.map((item) => {
+    return item * 2
+})
+
+console.log(newArr)
+
+// Nós vamos ter o mesmo funcionamento.
+
+
+
+
+
+
+const newArr = arr.map(item => {
+    return item * 2
+})
+
+
+// Quando tiver UM parametro nós podemos remover os () por volta...
+
+
+
+
+
+
+const newArr = arr.map(item => item * 2)
+
+
+
+// Quando tiver uma linha de codigo nós podemos remover as CHAVES de colocar tudo na mesma linha.
+
+
+
+
+
+const text = () => {
+    
+}
+
+
+// Não é recomendado fazer dessa maneira.
+
+
+
+
+
+
+
+const teste = () => {
+    return 'teste'
+}
+
+console.log(teste())
+
+
+// Vai retorna teste.
+
+
+
+
+
+const teste = () => [1, 2, 3, 4, 7]
+
+const teste = () => 'Teste'
+
+const teste = () => 4
+
+console.log(teste())
+
+
+// Podemos fazer assim
+
+
+
+
+
+
+const teste = () => { nome: "Alexandre" }
+
+// Não podemos retornar objeto dessa forma, porque na função já é usado as CHAVES.
+
+
+
+
+
+const teste = () => ({ nome: "Alexandre" })
+
+console.log(teste())
+
+// Para retorna objetos TEMOS que colocar () por volta das chaves.
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- VALORES PADRÃO -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+const soma = (a, b) => {
+    return a + b
+}
+
+console.log(soma(1))
+console.log(soma())
+
+// Ele vai retornar um NaN, porque ele não conseguiu identificar qual número é pra ele somar.
+
+
+
+
+
+
+const soma = (a = 3, b = 6) => {
+    return a + b
+}
+
+console.log(soma(1))
+console.log(soma())
+
+
+// Vai retorna 7 e 9.
+
+
+
+
+const soma = (a = 3, b = 6) => a + b
+
+console.log(soma(1))
+console.log(soma())
+
+
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- DESESTRUTURAÇÃO -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+const usuario = {
+    nome: 'Alexandre',
+    idade: '15',
+    endereco: {
+        cidade: 'Luziânia',
+        estado: 'GO'
+    },
+}
+
+const { nome, idade } = usuario
+
+console.log(nome)
+console.log(idade)
+
+
+// Primeira vem o OBJETO e a dentro vem o que vc quer pegar do usuario.
+depois do sinal de = vem o nome do objeto que vc quer pegar.
+
+
+
+
+
+const { nome, idade, endereco: {cidade} } = usuario
+
+console.log(nome)
+console.log(idade)
+console.log(cidade)
+
+// Para pegar um elementro que esta dentro de outro objeto...
+
+
+
+
+
+const usuario = {
+    nome: 'Alexandre',
+    idade: '15',
+    endereco: {
+        cidade: 'Luziânia',
+        estado: 'GO'
+    },
+}
+
+function mostraNome(usuario) {
+    console.log(usuario.nome)
+}
+
+mostraNome(usuario)
+
+
+
+
+
+
+
+function mostraNome({ nome, idade, endereco: { cidade } }) {
+    console.log(nome, idade, cidade)
+}
+
+mostraNome(usuario)
+
+
+// Podemos usar a desestruturação dentro de parametros de funções.
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- OPERADORES REST/SPREAD -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+// Ele e reponsavel por usar os ... pontos um do lado do outro.
+
+
+
+yarn add @babel/plugin-proposal-object-rest-spread
+
+// Precisamos instalar esse plugin.
+
+
+
+
+{
+    "presets": ["@babel/preset-env"],
+    "plugins": ["@babel/plugin-proposal-object-rest-spread"]
+}
+
+
+// Precisamos adcionar esse plugin no .babelrc também...
+
+
+
+
+
+
+REST: server para pegar os restos das propriedades.
+
+
+
+
+
+const usuario = {
+    nome: 'Alexandre',
+    idade: 15,
+    empresa: 'Google',
+}
+
+const { nome, ...resto } = usuario
+
+console.log(nome)
+console.log(resto)
+
+
+// Depois dos ... pontos vem o nome da variavel que vc quer quarta o resto das informações.
+
+// Ele vai mostra o nome e todo o resto do objeto.
+
+
+
+
+
+
+const arr = [1, 2, 3, 4]
+
+const [ a, b, ...c] = arr
+
+console.log(a)
+console.log(b)
+console.log(c)
+
+
+// Podemos fazer com vetores também...
+
+
+
+
+
+
+function soma(...params) {
+    return params.reduce((total, next) => total + next )
+}
+
+console.log(soma(1, 3, 4, 6))
+
+
+// Podemos fazer isso ao envez de ficar colocando parametros.
+
+
+
+
+
+
+
+function soma(a, b, ...params) {
+    return params
+}
+
+console.log(soma(1, 3, 4))
+
+
+// O 1 é o (A), O 2 é o (B), e o params é o resto.
+
+
+
+
+
+
+
+
+SPREAD: ele vai repassar uma array ou um objeto para outra estrutura
+
+
+
+
+
+
+
+
+const arr1 = [1, 2, 3]
+const arr2 = [4, 5, 6]
+
+const arr3 = [ ...arr1, ...arr2 ]
+// é a mesma coisa que eu fazer, ARR1: 1, 2, 3 e ARR2: 4, 5, 6 
+
+console.log(arr3) 
+
+
+
+
+
+
+
+
+
+const usuario1 = {
+    nome: 'Alexandre',
+    idade: 15
+}
+
+const usuario2 = { ...usuario1, nome: 'Diego'}
+
+console.log(usuario2)
+
+
+// Ele vai substituir o nome: 'Alexandre' por 'Diego'.
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=- TEMPLATE LITERALS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+const nome = 'Alexandre'
+const idade = 15
+
+//console.log(' Meu nome é ' + nome + ' tenho ' + idade + ' anos ')
+console.log(`Meu nome é ${nome}, e tenho ${idade}`)
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=- OBJECT SHORT SYNTAX -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+const nome = 'Alexandre'
+const idade = 15
+
+const usuario = {
+    nome,
+    idade,
+    empresa: 'Google',
+}
+
+console.log(usuario)
+
+
+// Quando a variavel for igual ao atributo do objeto, nós não precisamos reescrever o nome denovo.
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- CONFIGURANDO WEBPACK -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+WEBPACK: Ele vai permitir que nós trabalhemos com varios arquivos e pastas na nossa aplicação
+
+
+
+
+"devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
+    "@babel/preset-env": "^7.8.4"
+  },
+
+
+// Mude o nome das dependencies do packagejson para devDependencies.
+
+
+
+> yarn add webpack webpack-cli -D
+
+// Instale a dependencia.
+
+
+
+> yarn add babel-loader@8.0.0-beta.0 -D
+
+// Instale essa depedencia.
+
+
+
+
+
+  "scripts": {
+    "dev": "webpack --mode-development -w"
+  }
+
+
+// Coloque esse codigo no script.
+
+
+> yarn dev
+// Para rodar o webpack
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- IMPORT/EXPORT -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+export function soma(a, b) {
+    return a + b
+}
+
+export function sub(a, b) {
+    return a - b
+}
+
+// No documento funcoes.js
+
+
+
+
+import { soma, sub } from './funcoes'
+
+console.log(soma(1, 2))
+console.log(sub(20, 15))
+// No documento main.js
+
+
+
+
+
+
+
+export default function soma(a, b) {
+    return a + b
+}
+
+// No documento soma.js
+
+
+
+import somaFuntion from './soma'
+
+console.log(somaFuntion(1, 2))
+
+// No documento main.js
+
+// Vc pode colocar o nome que vc quiser no import quando vc usa o export desse jeito.
+
+
+
+
+
+
+
+import { soma as somaFuntion, sub } from './funcoes'
+
+// Vc pode renomear o import do export padrão usando o AS e em seguida o nome que vc quer colocar.
+
+
+
+
+
+
+
+
+
+export default function soma(a, b) {
+    return a + b
+}
+
+export function sub(a, b) {
+    return a - b
+}
+
+
+
+import soma, { sub } from './funcoes'
+
+
+console.log(soma(1, 2))
+console.log(sub(20, 15))
+
+
+
+
+
+
+
+
+export function soma(a, b) {
+    return a + b
+}
+
+export function sub(a, b) {
+    return a - b
+}
+
+export function mult(a, b) {
+    return a * b
+}
+
+// No documento funcoes.js
+
+
+
+
+
+
+
+import * as funcoes from './funcoes'
+// O * as vai pegar TODAS as funções do documento
+
+
+console.log(funcoes.soma(1, 2))
+console.log(funcoes.sub(20, 15))
+console.log(funcoes.mult(5, 20))
+// No documento main.js
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- WEBPACK DEV SERVER -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+WEBPACK DEV SERVER: Ele vai ficar monitorando, toda vez que nós formos mudar o documento ele vai dar um reload automaticamente na pagina.
+
+
+PASTA SRC: Vai ficar todos os nossos documentos que o WEBPACK precisa monitorar
+
+PASTA PUBLIC: Vai ficar todos os nossos documentos que o WEBPACK Não precisa monitotrar
+
+
+
+// Apaga o arquivo bundle porque nós vamos criar um novo arquivo bandle gerato pelo webpack
+
+
+
+module.exports = {
+    entry: './src/main.js',  // E nosso arquivo principal
+    output: {
+        path: __dirname + '/public',    // Para ele jogar o arquivo bandle la no public
+        filename: 'bundle.js',
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/, // Vai pedir para ele apagar o node modules
+                use: {
+                    loader: 'babel-loader',
+                }
+            }
+        ],
+    },
+}
+
+// Faça essas mudanças
+
+
+
+
+
+> yarn add webpack-dev-server -D
+// Instale essa dependencia
+
+
+
+
+
+devServer: {
+        contentBase: __dirname + '/public'  // E a onde ele vai abrir o servidor da nossa aplicação.
+    },
+
+// Coloque no arquivo webpack
+
+
+
+
+
+
+  "scripts": {
+    "dev": "webpack-dev-server --mode-development"
+  }
+
+// Coloque no package.json
+
+
+
+
+> yarn dev
+// Rode esse comando para iniciar o servidor...
+
+
+
+// Nós não vemos o arquivo bandle fisicamente dentro da pasta public.
+
+
+
+
+   PARA VER O ARQUIVO BANDLE FISICAMENTE QUANTO NÓS FOMOS COLOCAR ELE ONLINE:
+
+
+
+"scripts": {
+    "dev": "webpack-dev-server --mode-development",
+    "build": "webpack --mode=production"
+  }
+
+// Coloca esse novo script no package.json
+
+
+
+
+> yarn build
+// Rode esse comando no terminal para fazer o bundle aparecer.
+
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- ASYCN/AWAIT -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+ELE SERVER PARA NÓS NÃO USARMOS O .THEN E O .CATCH
+
+
+const minhaPromisse = () => new Promise((resolve, reject) => {
+    setTimeout(() => { resolve('OK') }, 2000);
+});
+
+minhaPromisse()
+    .then(response => {
+        console.log(response);
+    })
+    .catch(err => {
+        
+    });
+
+
+
+// Fazer uma assicrono
+
+
+
+
+> yarn add @babel/plugin-transform-async-to-generator -D
+// Instale essa biblioteca
+
+> yarn add @babel/polyfill -D
+// Instale essa outra biblioteca
+
+
+
+{
+    "presets": ["@babel/preset-env"],
+    "plugins": [
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/plugin-transform-async-to-generator"
+    ]
+}
+
+
+// Colocar o plugin transform asycn to generator no .babelrc.
+
+
+
+
+
+
+
+
+
+
+module.exports = {
+    entry: ['@babel/polyfill', './src/main.js'],  // Para ele iniciar o polyfill primeiro
+    output: {
+        path: __dirname + '/public',    // Para ele jogar o arquivo bandle la no public
+        filename: 'bundle.js',
+    },
+    devServer: {
+        contentBase: __dirname + '/public'  // E a onde ele vai abrir o servidor da nossa aplicação.
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/, // Vai pedir para ele apagar o node modules
+                use: {
+                    loader: 'babel-loader',
+                }
+            }
+        ],
+    },
+}
+
+
+// Coloca o polyfill no webpack.config 
+
+
+
+
+
+
+async function executaPromisse() {
+    const response = await minhaPromisse()
+    const response = await minhaPromisse()
+    const response = await minhaPromisse()
+    const response = await minhaPromisse()
+    const response = await minhaPromisse()
+    // Os outros so vão executar quando o primeiro terminar, e assim por diante...
+
+    console.log(response)
+}
+
+
+
+
+
+
+const executaPromisse = async () => {
+    console.log(await minhaPromisse())
+    console.log(await minhaPromisse())
+    console.log(await minhaPromisse())   
+}
+
+executaPromisse()
+
+// Forma de usar os asycn await com arrow function.
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- CONFIGURANDO AXIOS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+> yarn add axios
+// VC não precisa passa o -D no final, porque ele não e uma dependencia de desenvolvimento
+
+
+
+
+
+import axios from 'axios'
+
+class Api {
+    static async getUserInfo(username) {
+        try {
+        const response = await axios.get(`https://api.github.com/users/${username}`)
+
+        console.log(response)
+
+        } catch (err) {
+            console.warn('Erro na Api')
+        }
+        // O try catch e para retornar um erro 
+    }
+}
+
+Api.getUserInfo('Alexandremotion')
+
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- ESTRUTURA E ESTILOS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Usando o babel</title>
+
+    <style>
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        li {
+            clear: both;
+            margin-top: 20px;
+        }
+
+        strong {
+            font-size: 20px;
+        }
+
+        p {
+            margin: 5px 0px;
+        }
+
+        img {
+            float: left;
+            width: 80px;
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <form class="repo-form">
+        <input type="text" name="repository" />
+        <button type="submit">Adcionar</button>
+    </form>
+
+    <ul class="repo-list">
+        <li>
+            <img src="https://avatars0.githubusercontent.com/u/28929274?=4" alt="avatar" />
+            <strong>rocketseat.com.br</strong>
+            <p>Tire a sua ideia do papel e dê vida á sua startup.</p>
+            <a href="http://github.com/rocketseat/rocketseat.com.br" target="_blank">Acessar</a>
+        </li>
+
+        <li>
+            <img src="https://avatars0.githubusercontent.com/u/28929274?=4" alt="avatar" />
+            <strong>rocketseat.com.br</strong>
+            <p>Tire a sua ideia do papel e dê vida á sua startup.</p>
+            <a href="http://github.com/rocketseat/rocketseat.com.br" target="_blank">Acessar</a>
+        </li>
+    </ul>
+
+    <script src="./bundle.js"></script>
+</body>
+</html>
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- ADICIONAR REPOSITÓRIO -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+
+class App {     // É toda a nossa aplicação.
+    constructor() {
+        this.repositories = []
+
+        this.formEl = document.getElementById('repo-form')
+        this.listEl = document.getElementById('repo-list')
+
+        this.registerHandlers()
+    }
+
+    registerHandlers() {    // Ela vai registrar os eventos...
+        this.formEl.onsubmit = event => this.addRepository(event)    // O evento de adcionar...
+    }
+
+    addRepository(event) {     
+        event.preventDefault()   // Para tirar o recarregamento da pagina
+
+        this.repositories.push({
+            name: 'rocketseat.com.br',
+            description: 'Tire a sua ideia do papel e dê vida á sua startup.',
+            avatar_url: 'https://avatars0.githubusercontent.com/u/28929274?=4',
+            html_url: 'http://github.com/rocketseat/rocketseat.com.br',
+        })
+
+	console.log(repositories)
+    }
+
+}
+
+new App()   // Vai rodar a nossa class
+// Como nós não vamos reutilizar essa class depois, podemos colocar ela assim...
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=- RENDER EM TELA -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+
+class App {     // É toda a nossa aplicação.
+    constructor() {
+        this.repositories = []
+
+        this.formEl = document.getElementById('repo-form')
+        this.listEl = document.getElementById('repo-list')
+
+        this.registerHandlers()
+    }
+
+    registerHandlers() {    // Ela vai registrar os eventos...
+        this.formEl.onsubmit = event => this.addRepository(event)    // O evento de adcionar...
+    }
+
+    addRepository(event) {     
+        event.preventDefault()   // Para tirar o recarregamento da pagina
+
+        this.repositories.push({
+            name: 'rocketseat.com.br',
+            description: 'Tire a sua ideia do papel e dê vida á sua startup.',
+            avatar_url: 'https://avatars0.githubusercontent.com/u/28929274?=4',
+            html_url: 'http://github.com/rocketseat/rocketseat.com.br',
+        })
+
+        this.render()
+    }
+
+    render() {     // Ele vai pecorrer todos esses codigos acima, e rendelizar tudo do zero.
+        this.listEl.innerHTML = ''  // Isso vai fazer ele apagar.
+
+        this.repositories.forEach(repo => {     // repo => RECEBE CADA REPOSITORIO...
+            let imgEl = document.createElement('img')
+            imgEl.setAttribute('src', repo.avatar_url)
+
+            let titleEl = document.createElement('strong')
+            titleEl.appendChild(document.createTextNode(repo.name))
+
+            let descriptionEl = document.createElement('p')
+            descriptionEl.appendChild(document.createTextNode(repo.description))
+
+            let linkEl = document.createElement('a')
+            linkEl.setAttribute('target', '_blank')
+            linkEl.appendChild(document.createTextNode('Acessar'))
+
+            let listItemEl = document.createElement('li')   // Adcionando tudo na tag LI...
+            listItemEl.appendChild(imgEl)
+            listItemEl.appendChild(titleEl)
+            listItemEl.appendChild(descriptionEl)
+            listItemEl.appendChild(linkEl)
+
+            this.listEl.appendChild(listItemEl) // Vai pegar o listItemEl e jogar pra dentro do listEl...
+            
+        }) // E igual o map. MAP: Ele pecorre arry e modifica de alguma forma. forEach: Ele só pecorre.
+    }
+}
+
+new App()   // Vai rodar a nossa class
+// Como nós não vamos reutilizar essa class depois, podemos colocar ela assim...
+
+
+
+
+
+
+
+
+
+
+				-=- NO HTML -=-
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Usando o babel</title>
+
+    <style>
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        li {
+            clear: both;
+            margin-top: 20px;
+        }
+
+        strong {
+            font-size: 20px;
+        }
+
+        p {
+            margin: 5px 0px;
+        }
+
+        img {
+            float: left;
+            width: 80px;
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <form id="repo-form">
+        <input type="text" name="repository" />
+        <button type="submit">Adcionar</button>
+    </form>
+
+    <ul id="repo-list"></ul>
+
+    <script src="./bundle.js"></script>
+</body>
+</html>
+

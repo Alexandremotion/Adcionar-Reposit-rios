@@ -1,0 +1,3 @@
+# IGNORAR ARQUIVOS QUE NÃO TEM NECESSIDADE DE IR PRO GITHUB...
+/node_modules
+/.vscode
